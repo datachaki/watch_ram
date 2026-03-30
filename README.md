@@ -4,10 +4,9 @@ A high-visibility, interactive RAM monitor for your Linux terminal. It displays 
 
 Before running `watch_ram`, ensure you have the following installed:
 
-1.  **Bash** (Standard on most Linux systems)
-2.  **procps** 
-3.  **ncurses** 
-4.  **figlet**
+1.  **procps** 
+2.  **ncurses** 
+3.  **figlet**
 
 
 ##  Installation
