@@ -1,0 +1,31 @@
+#!/bin/bash
+colors=(31 32 33 34 35 36 37)
+index=0
+
+while true; do
+    term_width=$(tput cols)
+    term_height=$(tput lines)
+    ram_usage=$(free -h | awk '/Mem:/ {print $3}' | tr '[:lower:]' '[:upper:]')
+    
+    big_text=$(figlet -f big "RAM: $ram_usage")
+    text_width=$(echo "$big_text" | head -n 1 | wc -c)
+    text_height=$(echo "$big_text" | wc -l)
+
+    x=$(( (term_width - text_width) / 2 ))
+    y=$(( (term_height - text_height) / 2 ))
+
+    clear
+    tput cup $y 0
+    echo -e "\e[1;${colors[$index]}m" 
+    
+    echo "$big_text" | while IFS= read -r line; do
+        printf "%${x}s%s\n" "" "$line"
+    done
+    echo -ne "\e[0m" 
+
+    read -n 1 -t 1 -s key
+
+    if [[ "$key" == "f" || "$key" == "F" ]]; then
+        index=$(( (index + 1) % ${#colors[@]} ))
+    fi
+done
